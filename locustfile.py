@@ -5,4 +5,4 @@ class WebsiteTestUser(HttpUser):
 
     @task(1)
     def helloworld(self):
-        self.client.get("http://localhost:5000")
+        self.client.get("http://192.168.49.2:31477")
