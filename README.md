@@ -41,8 +41,8 @@ This will allow you to specify users, spawn rate, the host (which will be the UR
   
 ### Steps during an iteration:
   
-- We first configure our setup with the minimum and maximum intended average utilization in mind; starting at 100 percent and then decreasing it iteratitvely according to the experienced failure rate
-- We then configure the minimum and maximum number of pods available in the system to process the incoming requests
+- We first configure the minimum and maximum number of pods available in the system to process the incoming requests
+- We then configure our setup with the minimum and maximum intended average utilization in mind; starting at an arbitrary number for % utilization and then amending  it iteratitvely according to the experienced failure rate
 - Based on the results we tweak our parameters and run the system once again.
  
 
