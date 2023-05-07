@@ -44,6 +44,7 @@ This will allow you to specify users, spawn rate, the host (which will be the UR
 - We first configure the minimum and maximum number of pods available in the system to process the incoming requests
 - We then configure our setup with the minimum and maximum intended average utilization in mind; starting at an arbitrary number for % utilization and then amending  it iteratitvely according to the experienced failure rate
 - Based on the results we tweak our parameters and run the system once again.
+- In order to delete a Kubernetes Pod, use the following deletion command: `kubectl delete $(kubectl get pods -o name)`
  
 
 
