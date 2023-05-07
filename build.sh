@@ -24,13 +24,15 @@ echo STARTING MINIKUBE
 echo THIS MAY TAKE A LOT OF TIME FOR THE FIRST RUN
 minikube start
 
+minikube addons enable metrics-server
+
 # Deploy Kubernetes Resouces for the API
 
 # Pulls the latest image by default (i.e. one with the latest tag)
 #kubectl create deployment sample-api --image=yashrajg/flask-stub-api
 
 kubectl apply -f  kubernetes-deployments/Deployment.yaml
-kubectl expose deployment sample-api --type=LoadBalancer --port=5000
+kubectl expose deployment web --type=LoadBalancer --port=5000
 kubectl apply -f kubernetes-deployments/HorizontalPodAutoscaler.yaml
 
 echo THE API URL IS

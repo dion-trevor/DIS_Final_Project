@@ -32,9 +32,9 @@ spec:
         name: flask-stub-api
         resources:
           limits:
-            cpu: 500m
+            memory: 60Mi
           requests:
-            cpu: 50m
+            memory: 30Mi
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
