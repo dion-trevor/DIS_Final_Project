@@ -16,11 +16,12 @@ Start by opening the terminal and typing in `git clone https://github.com/dion-t
 
 Then open the terminal inside the cloned repository and Run the `build.sh` script file with the command `sh build.sh`
 
-This script file containerizes the flask API on which our autosclaing configuration is tested and uploads it to dockerhub to be efficiently pulled and deployed in the Kubernetes cluster. 
+### Application Container Image
+`build.sh' containerizes the flask API on which our autosclaing configuration is tested and uploads it to dockerhub to be efficiently pulled and deployed in the Kubernetes cluster. Alternatively, for testing and verification the container image can be reconstructed using the `docker build  ` command which is provided in a comment in the `build.sh` file. This uses the dockerfile present at the root directory to build the container image developed using standard dockerfile commands to containerize a flask application.
 
-Alternatively, for testing and verification the container image can be reconstructed using the `docker build  ` command which is provided in a comment in the `build.sh` file. This uses the dockerfile present at the root directory to build the container image developed using standard dockerfile commands to containerize a flask application.
+### _kubectl_ and _minikube_
 
-The script then proceeds to install _kubectl_ which is a command line interface to interact with a kubernetes cluster and _minikube_ which helps to create a kubernetes cluster locally for non-production purposes. 
+`build.sh` then proceeds to install _kubectl_ which is a command line interface to interact with a kubernetes cluster and _minikube_ which helps to create a kubernetes cluster locally for non-production purposes. 
 
 After this, the script then creates the deployment environment by using _kubectl_ to leverage the `deployment.yaml` file. _kubectl_ is also used to configure the load balancer and the Horizontal Pod Autoscaler using the `HorizontalPodAutoscaler.yaml` file. The `build.sh` script upon execution provides the API URL which can be used to validate the application by using the command `curl <url provided after running build.sh>`.
 
@@ -32,5 +33,18 @@ kubectl delete $(kubectl get pods -o name)
 
 ## Running tests
 
-In order to test and evaluate our system, we use wrk and locust. wrk is a modern HTTP benchmarking tool which can generate a significant load when run on a single multi-core CPU. It combines a multithreaded design with scalable event notification systems such as epoll and kqueue. Locust is a scalable performance testing tool where we define the behaviour of your users in regular Python code.
+In order to test and evaluate our system, we use locust. Locust is an easy to use, scriptable and scalable performance testing tool where we define the behaviour of our users in regular Python code. Instructions for installing locust can be found [here](https://github.com/locustio/locust).
+
+Once you do that, in the same directory as before, use command 'locust' and navigate to the URL provided. If that does not work, open `localhost:8089` in your web broswer(default).
+
+This will allow you to specify users, spawn rate, the host (which will be the URL provided by build.sh) and the run time.
+  
+### Steps during an iteration:
+  
+- We first configure our setup with the minimum and maximum intended average utilization in mind; starting at 100 percent and then decreasing it iteratitvely according to the experienced failure rate
+- We then configure the minimum and maximum number of pods available in the system to process the incoming requests
+- Based on the results we tweak our parameters and run the system once again.
+ 
+
+
 
